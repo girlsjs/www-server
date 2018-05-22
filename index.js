@@ -26,17 +26,22 @@ hexo.init();
 
 const git = simpleGit(projectDir);
 
+
 const rebuild = () => git
   .silent(false)
   .pull('origin', 'master', () => {
-    hexo
-      .call('generate', {})
-      .catch((e) => console.error(e));
+    git
+      .silent(false)
+      .reset(['--hard', 'FETCH_HEAD'], () => {
+        hexo
+          .call('generate', {})
+          .catch((e) => console.error(e));
+      })
   })
 
 
 app.post('/regenerate', (req, res) => {
-  if (config.key === req.body.key) {
+  if (config.key === req.query.key) {
     rebuild()
     res.send('Success');
   } else {

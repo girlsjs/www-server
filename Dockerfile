@@ -14,6 +14,8 @@ COPY ./yarn.lock /server/
 WORKDIR /server/
 RUN yarn
 
+RUN git config --global user.name 'Snail Mail'
+RUN git config --global user.email '<>'
 
 # Create content
 RUN git clone https://github.com/girlsjs/www.git
