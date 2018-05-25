@@ -40,7 +40,7 @@ const rebuild = () => {
       .then(() => pull(themeDir))
       .then(() => {
         hexo
-          .call('generate', {})
+          .call('generate', { force: true })
           .catch((e) => console.error(e));
       })
   };
